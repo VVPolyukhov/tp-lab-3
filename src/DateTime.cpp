@@ -1,7 +1,7 @@
 #include "DateTime.h"
 
-string DateTime::Month[] = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
-string DateTime::Day[] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+string DateTime::Month[] = { "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december" };
+string DateTime::Day[] = { "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" };
 
 
 DateTime::DateTime(int day, int month, int year)
@@ -72,9 +72,11 @@ int DateTime::getDifference(DateTime& data)
 string DateTime::getData(tm& data_time)
 {
 	string Data = "";
-	Data += to_string(data_time.tm_mday) + " " +
-			Month[data_time.tm_mon] + " " +
-			to_string(data_time.tm_year + 1900) + ", " + 
-			Day[data_time.tm_wday];
+	if (data_time.tm_mday > 9)
+		Data += to_string(data_time.tm_mday);
+	else
+		Data += "0" + to_string(data_time.tm_mday);
+
+	Data += " " + Month[data_time.tm_mon] + " " + to_string(data_time.tm_year + 1900) + ", " + Day[data_time.tm_wday];
 	return Data;
 }
